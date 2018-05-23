@@ -61,7 +61,7 @@ Eigen::VectorXf _nn_cosine_distance(const FEATURESS &x,
 	}
 #endif
 	int64_t nntm2 = nn_gtm();	
-	std::cout << "_nn_cosine_distance(" << x.rows() << "," << y.rows() << ")----nntm2-nntm1:" << (nntm2-nntm1) << "\n";
+/*	std::cout << "_nn_cosine_distance(" << x.rows() << "," << y.rows() << ")----nntm2-nntm1:" << (nntm2-nntm1) << "\n";*/
 	//std::cout << "re---b\n" << re << "\nre----e\n" << std::endl;
 	return re;
 }
@@ -162,7 +162,7 @@ public:
 				int64_t dtm1 = nn_gtm();
 				cost_matrix.row(i) = _nn_cosine_distance(fts, features);
 				int64_t dtm2 = nn_gtm();
-				std::cout << "distance(" << iid<< ")----dtm2-dtm1:" << (dtm2-dtm1) << "\n";
+/*				std::cout << "distance(" << iid<< ")----dtm2-dtm1:" << (dtm2-dtm1) << "\n";*/
                         }
                    }
                 );
@@ -184,7 +184,7 @@ public:
 			Eigen::VectorXf dd = _nn_cosine_distance(fts, features);
 			dds.Push(i, dd);
 			int64_t dtm2 = nn_gtm();
-			std::cout << "distance(" << iid<< ")----dtm2-dtm1:" << (dtm2-dtm1) << "\n";
+/*			std::cout << "distance(" << iid<< ")----dtm2-dtm1:" << (dtm2-dtm1) << "\n";*/
         }
 	std::vector<std::pair<int, Eigen::VectorXf>> vec;
 	dds.Get(vec);
@@ -194,7 +194,7 @@ public:
 	} 
 #endif
 		int64_t dtm4 = nn_gtm();
-		std::cout << "distance----dtm4-dtm0:" << (dtm4-dtm0) << "\n";
+/*		std::cout << "distance----dtm4-dtm0:" << (dtm4-dtm0) << "\n";*/
 		//std::cout << "\nb-haha\n" << cost_matrix << "\ne-haha\n";
 		return cost_matrix;
     }

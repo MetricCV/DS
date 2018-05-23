@@ -21,7 +21,7 @@
 
 #include "adapter.h"
 #ifndef WIN32
-#include <boost/serialization/array_wrapper.hpp>
+#include <boost/serialization/array.hpp>
 #endif
 #include <boost/numeric/ublas/matrix.hpp>
 

@@ -130,11 +130,11 @@ public:
 		NearestNeighborDistanceMetric::Instance()->partial_fit(
 			features, ids, active_ids);
 	int64_t uptm7 = line_gtm();
-	std::cout << "up----uptm2-uptm1:" << (uptm2-uptm1) << 
+/*	std::cout << "up----uptm2-uptm1:" << (uptm2-uptm1) << 
 			", uptm3-uptm1:" << uptm3-uptm1 << 
 			", uptm4-uptm1:" << (uptm4-uptm1) << 
 			", uptm5-uptm1:" << (uptm5-uptm1) << 
-			", uptm6-uptm1:" << (uptm6-uptm1) << "\n";
+			", uptm6-uptm1:" << (uptm6-uptm1) << "\n";*/
 	return re;
     }
     
@@ -210,10 +210,10 @@ private:
                     unmatched_tracks_b.end(),
                     std::back_inserter(re.unmatched_tracks));
 	int64_t mtm5 = line_gtm();
-	std::cout << "match----mtm2-mtm1:" << (mtm2-mtm1) << 
+/*	std::cout << "match----mtm2-mtm1:" << (mtm2-mtm1) << 
 			", mtm3-mtm1:" << (mtm3-mtm1) << 
 			", mtm4-mtm1:" << (mtm4-mtm1) <<
-			", mtm5-mtm1:" << (mtm5-mtm1) << "\n";
+			", mtm5-mtm1:" << (mtm5-mtm1) << "\n";*/
         return re;
     }    
 
@@ -256,8 +256,8 @@ DYNAMICM getCostMatrixByNND(const std::vector<KalmanTracker> &kalmanTrackers,
 		*KF::Instance(), cost_matrix, kalmanTrackers, dets, track_indices,
 		detection_indices);
 	int64_t gtm3 = line_gtm();
-	std::cout << "getCostMatrixByNND----gtm2-gtm1:" << (gtm2-gtm1) <<
-			", gtm3-gtm1:" << (gtm3-gtm1) << "\n";
+/*	std::cout << "getCostMatrixByNND----gtm2-gtm1:" << (gtm2-gtm1) <<
+			", gtm3-gtm1:" << (gtm3-gtm1) << "\n";*/
 	return cost_matrix;
 }
 #endif

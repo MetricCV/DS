@@ -148,10 +148,10 @@ public:
             //}
         }
 	int64_t mintm5 = line_gtm();
-	std::cout << "min_cost_matching----mintm2-mintm1:" << (mintm2-mintm1) <<
+/*	std::cout << "min_cost_matching----mintm2-mintm1:" << (mintm2-mintm1) <<
 			", mintm3-mintm1:" << (mintm3-mintm1) << 
 			", mintm4-mintm1:" << (mintm4-mintm1) << 
-			", mintm5-mintm1:" << (mintm5-mintm1) << "\n";
+			", mintm5-mintm1:" << (mintm5-mintm1) << "\n";*/
         return rr;
     }
 
@@ -209,7 +209,7 @@ public:
                 tmpMap.insert(pa);
             }
 		int64_t ctm2 = line_gtm();
-		std::cout << "cascade("<< level << ")----ctm2-ctm1:" << (ctm2-ctm1) << "\n";
+/*		std::cout << "cascade("<< level << ")----ctm2-ctm1:" << (ctm2-ctm1) << "\n";*/
         }
         re.unmatched_detections = unmatched_detections;
         for (int i = 0; i < track_indices.size(); i++) {
@@ -220,7 +220,7 @@ public:
             }
         }
 	int64_t ctm4 = line_gtm();
-	std::cout << "cascade----ctm4-ctm0:" << (ctm4-ctm0) << "\n";
+/*	std::cout << "cascade----ctm4-ctm0:" << (ctm4-ctm0) << "\n";*/
         return re;
     }
 

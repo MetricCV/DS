@@ -111,7 +111,7 @@ bool NT::Init(){
        		cvtColor(frame, nnn, cv::COLOR_RGB2GRAY);
 		resize(nnn, nnn, Size(32, 32));
 		Mat a = fhog(nnn, 4, 9, 0.2f, false);
-		std::cout << "a:cols:" << a.cols << "a:rows:" << a.rows << "\njust a test, exit\n";
+/*		std::cout << "a:cols:" << a.cols << "a:rows:" << a.rows << "\njust a test, exit\n";*/
 		exit(0);
 	}
 
@@ -148,7 +148,7 @@ bool NT::Init(){
 	return true;
 }
 NewAndDelete NT::UpdateDS(const cv::Mat &frame, const std::vector<cv::Rect> &rcs, int num, const std::vector<int> &oriPos){
-		int64_t tm1 = gtm();
+/*		int64_t tm1 = gtm();*/
 		std::vector<Detection> dets;
 		std::vector<FEATURE> fts;
 		if(rcs.size() > 0){
@@ -158,7 +158,7 @@ NewAndDelete NT::UpdateDS(const cv::Mat &frame, const std::vector<cv::Rect> &rcs
 			ExtractFeature(frame, rcs, fts);
 #endif
 		}
-		int64_t tm2 = gtm();
+/*		int64_t tm2 = gtm();*/
 		for (int i = 0; i < rcs.size(); i++){	
 			DSBOX box;
 			cv::Rect rc = rcs[i];
@@ -174,14 +174,14 @@ NewAndDelete NT::UpdateDS(const cv::Mat &frame, const std::vector<cv::Rect> &rcs
 			dets.push_back(det);
 		}
    	 	NewAndDelete nad = tt_->update(dets);
-		int64_t tm3 = gtm();
+/*		int64_t tm3 = gtm();
 		std::string tail = "";
 		if(tm3-tm1 > 30000){
 			tail = "****";
-		}
+		}*/
 
-		std::cout << num << "----rcs.size():" << rcs.size() << "[tm1:" << tm1 << ",tm2:" << tm2 << "("<< (tm2 - tm1) << ")"<< ",tm3:"
-			<< tm3 << "(" << (tm3-tm1) << ")]" << tail.c_str() << "\n";
+/*		std::cout << num << "----rcs.size():" << rcs.size() << "[tm1:" << tm1 << ",tm2:" << tm2 << "("<< (tm2 - tm1) << ")"<< ",tm3:"
+			<< tm3 << "(" << (tm3-tm1) << ")]" << tail.c_str() << "\n";*/
 		return nad;
 }
 
@@ -260,7 +260,7 @@ std::map<int, DSResult> NT::UpdateAndGet(const cv::Mat &frame,
 	Mat ffMat;
         cvtColor(frame, ffMat, cv::COLOR_RGB2GRAY);
 	resize(ffMat, ffMat, Size(ffMat.cols*scale_, ffMat.rows*scale_));
-	std::cout << "NT::UpdateAndGet1\n";
+/*	std::cout << "NT::UpdateAndGet1\n";*/
 	//}
 	if(!rcsin.empty()){
 		fdssts_.clear();
@@ -268,7 +268,7 @@ std::map<int, DSResult> NT::UpdateAndGet(const cv::Mat &frame,
 	else{
 		UpdateFDSST(ffMat, rcs);
 	}
-	std::cout << "NT::UpdateAndGet1.5\n";
+/*	std::cout << "NT::UpdateAndGet1.5\n";*/
 	outRcs = rcs;
 	NewAndDelete nad = UpdateDS(frame, rcs, num, oriPos);
 
@@ -277,11 +277,11 @@ std::map<int, DSResult> NT::UpdateAndGet(const cv::Mat &frame,
 	std::vector<KalmanTracker> &kalmanTrackers =
 			tt_->kalmanTrackers_;
 
-	std::cout << "NT::UpdateAndGet2\n";
+/*	std::cout << "NT::UpdateAndGet2\n";*/
 	std::vector<std::pair<int, cv::Rect> > idrcs;	
     	for (const auto& track : kalmanTrackers){
 		int id = (int)track->track_id;
-		printf("trackid:%d, is_confirmed:%d, time_since_update:%d\n", id, track->is_confirmed(), track->time_since_update_);
+		/*printf("trackid:%d, is_confirmed:%d, time_since_update:%d\n", id, track->is_confirmed(), track->time_since_update_);*/
 		//if (!track->is_confirmed() || track->time_since_update_ > 0) {
 		//	continue;
 		//}
@@ -300,9 +300,9 @@ std::map<int, DSResult> NT::UpdateAndGet(const cv::Mat &frame,
 		tr.oriPos_ = oriPos;
 		if(!rcsin.empty()){
 			idrcs.push_back(std::make_pair(id, rc));	
-			printf("id:%d, rc:(%d, %d, %d, %d), oriPos:%d, rcsin.size():%d, rcs.size():%d\n", 
+			/*printf("id:%d, rc:(%d, %d, %d, %d), oriPos:%d, rcsin.size():%d, rcs.size():%d\n", 
 					id, rc.x, rc.y, rc.width, rc.height,
-					oriPos, rcsin.size(), rcs.size());
+					oriPos, rcsin.size(), rcs.size());*/
 			
 		}
 		if (!track->is_confirmed() || track->time_since_update_ > 0) {
@@ -311,21 +311,21 @@ std::map<int, DSResult> NT::UpdateAndGet(const cv::Mat &frame,
 
 		map.insert(std::make_pair(id, tr));
     	}
-	std::cout << "NT::UpdateAndGet3\n";
+/*	std::cout << "NT::UpdateAndGet3\n";*/
 	FFS ffs;
 	#pragma omp parallel for
 	for(int i = 0; i < idrcs.size(); i++){
 		std::pair<int, cv::Rect> pa = idrcs[i];
 		int id = pa.first;
 		cv::Rect rc = pa.second;
-		printf("id:%d, rc:(%d, %d, %d, %d)\n", 
-				id, rc.x, rc.y, rc.width, rc.height);
+		/*printf("id:%d, rc:(%d, %d, %d, %d)\n", 
+				id, rc.x, rc.y, rc.width, rc.height);*/
 
 		FDSSTTrackerP fdsst(new FDSSTTracker());
 		fdsst->init(ToScaleRect(rc), ffMat);
 		ffs.Push(id, fdsst);
 	}
-	std::cout << "NT::UpdateAndGet4\n";
+/*	std::cout << "NT::UpdateAndGet4\n";*/
 	std::vector<std::pair<int, FDSSTTrackerP> > pps;
 	ffs.Get(pps);
 	for(int i = 0; i < pps.size(); i++){

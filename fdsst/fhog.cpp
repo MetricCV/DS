@@ -503,7 +503,7 @@ float* fhog(float* I,int height,int width,int channel,int *h,int *w,int *d,int b
     *h = height/binSize;
     *w = width/binSize;
     *d = nOrients*3+5;
-	printf("fhog.cpp506:(binSize:%d, h:%d, w:%d, d:%d)\n", binSize, *h, *w, *d);
+/*	printf("fhog.cpp506:(binSize:%d, h:%d, w:%d, d:%d)\n", binSize, *h, *w, *d);*/
 
     float* H = new float[(*h)*(*w)*(*d)];
     memset(H,0.0f,(*h)*(*w)*(*d)*sizeof(float));
@@ -560,8 +560,8 @@ float* HOGXYZ(const cv::Mat& input, int &len){
 		delete []II;
         return NULL; 
     }
-	printf("fhog563:(WIDTH:%d, HEIGHT:%d, DEPTH:%d, w:%d, h:%d, d:%d)\n", 
-		WIDTH, HEIGHT, DEPTH, w, h, d);
+/*	printf("fhog563:(WIDTH:%d, HEIGHT:%d, DEPTH:%d, w:%d, h:%d, d:%d)\n", 
+		WIDTH, HEIGHT, DEPTH, w, h, d);*/
     float* H = new float[h*w*d];
     change_format(H,HH,d,w,h);
     delete []II;delete []I;delete []HH;
@@ -598,8 +598,8 @@ cv::Mat fhog(const cv::Mat& input, int binSize, int nOrients, float clip, bool c
         cv::Mat re;
         return re; 
     }
-	printf("fhog563:(WIDTH:%d, HEIGHT:%d, DEPTH:%d, w:%d, h:%d, d:%d)\n", 
-		WIDTH, HEIGHT, DEPTH, w, h, d);
+/*	printf("fhog563:(WIDTH:%d, HEIGHT:%d, DEPTH:%d, w:%d, h:%d, d:%d)\n", 
+		WIDTH, HEIGHT, DEPTH, w, h, d);*/
     float* H = new float[h*w*d];
     change_format(H,HH,d,w,h);
     cv::Mat fhog_feature(h,w,CV_32FC(32),H);
