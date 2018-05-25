@@ -21,14 +21,14 @@ BAZEL=`getbazel`
 IINCLUDE="-I/usr/local/include -I/usr/local/opencv-3.4 -I/usr/local/opencv-3.4/include -I/usr/local/include/Eigen"
 
 
-LLIBPATH="-L/usr/local/opencv-3.4/lib -L/usr/local/lib -L/home/$USER/code1/DS/deepsort/FeatureGetter"
+LLIBPATH="-L/usr/local/opencv-3.4/lib -L/usr/local/lib -L/home/jwielandt/Github/DS/deepsort/FeatureGetter"
 
 rm DS -rf
 
 
 function BOPENMP(){
 	LLIBS="-lopencv_core -lopencv_imgproc  -lopencv_highgui -lFeatureGetter -lboost_system -lglog -ltcmalloc"
-	g++ --std=c++14 -O3 -fopenmp -DUDL -o DS $IINCLUDE $LLIBPATH  deepsort/munkres/munkres.cpp deepsort/munkres/adapters/adapter.cpp deepsort/munkres/adapters/boostmatrixadapter.cpp  NT.cpp fdsst/fdssttracker.cpp fdsst/fhog.cpp Main.cpp $LLIBS
+	g++ --std=c++14 -O3 -fopenmp -o DS $IINCLUDE $LLIBPATH  deepsort/munkres/munkres.cpp deepsort/munkres/adapters/adapter.cpp deepsort/munkres/adapters/boostmatrixadapter.cpp  NT.cpp fdsst/fdssttracker.cpp fdsst/fhog.cpp Main.cpp $LLIBS $(pkg-config opencv3.4 --cflags --libs)
 }
 
 
@@ -43,7 +43,8 @@ function BOPENMPHOG(){
 	g++ --std=c++14 -O3 -fopenmp -o DS $IINCLUDE $LLIBPATH  deepsort/munkres/munkres.cpp deepsort/munkres/adapters/adapter.cpp deepsort/munkres/adapters/boostmatrixadapter.cpp  NT.cpp fdsst/fdssttracker.cpp fdsst/fhog.cpp Main.cpp $LLIBS $(pkg-config opencv3.4 --cflags --libs)
 }
 
-BOPENMPHOG
+
+BOPENMP
 
 
 

@@ -109,7 +109,7 @@ typedef std::vector<IDSR> IDSRS;
 		return true;
 	}
 	bool FeatureGetter::Get(const cv::Mat &img, const std::vector<cv::Rect> &rcs,
-		std::vector<FFEATURE> &fts) {
+            std::vector<FFEATURE> &fts) {
         std::vector<cv::Mat> mats;
         for(cv::Rect rc:rcs){
             cv::Mat mat1 = img(rc).clone();
@@ -131,14 +131,14 @@ typedef std::vector<IDSR> IDSRS;
         std::vector<std::string> outnames;
         outnames.push_back("truediv");
         std::vector<std::string> ts;
-	int64_t ftm1 = fgtm();	
+        // int64_t ftm1 = fgtm();	
         auto status = session->Run(
             ins,
             outnames,
             ts,
             &output_tensors);
-	int64_t ftm2 = fgtm();
-	std::cout << "session.run----rcs.size():" << rcs.size() << ", ftm2-ftm1:" << (ftm2-ftm1) << "\n";
+        // int64_t ftm2 = fgtm();
+        // std::cout << "session.run----rcs.size():" << rcs.size() << ", ftm2-ftm1:" << (ftm2-ftm1) << "\n";
         if (!status.ok()) {
             printf("error 3%s \n", status.ToString().c_str());
             return false;

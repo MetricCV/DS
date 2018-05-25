@@ -82,12 +82,12 @@ public:
 
 
         MEAN std;
-        std(0) = 2 * _std_weight_position_ * measurement[3];
-        std(1) = 2 * _std_weight_position_ * measurement[3];
+        std(0) = 2 * _std_weight_position_ * measurement[0];
+        std(1) = 2 * _std_weight_position_ * measurement[1];
         std(2) = 1e-2;
         std(3) = 2 * _std_weight_position_ * measurement[3];
-        std(4) = 10 * _std_weight_velocity_ * measurement[3];
-        std(5) = 10 * _std_weight_velocity_ * measurement[3];
+        std(4) = 10 * _std_weight_velocity_ * measurement[0];
+        std(5) = 10 * _std_weight_velocity_ * measurement[1];
         std(6) = 1e-5;
         std(7) = 10 * _std_weight_velocity_ * measurement[3];
 
@@ -97,7 +97,7 @@ public:
         VAR var = Diag(tmp); 
 #ifdef KLOG
       	std::cout << "[-4--]begin mean:\n"  << mean << "\n[-4--]end mean\n";
-	std::cout << "[-4--]begin covariance:\n" << var << "\n[-4--]end covariance\n";
+        std::cout << "[-4--]begin covariance:\n" << var << "\n[-4--]end covariance\n";
 #endif
         std::pair<MEAN, VAR> pa;
         pa.first = mean;
@@ -108,17 +108,17 @@ public:
     std::pair<MEAN, VAR> predict(const MEAN &mean, const VAR &covariance) const{
         DSBOX std_pos;
         std_pos <<  
-            _std_weight_position_ * mean(3),
-            _std_weight_position_ * mean(3),
+            _std_weight_position_ * mean(0),
+            _std_weight_position_ * mean(1),
             1e-2,
             _std_weight_position_ * mean(3);
 
         DSBOX std_vel;
         std_vel << 
-            _std_weight_velocity_ * mean(3),
-            _std_weight_velocity_ * mean(3),
+            _std_weight_velocity_ * mean(4),
+            _std_weight_velocity_ * mean(5),
             1e-5,
-            _std_weight_velocity_ * mean(3);
+            _std_weight_velocity_ * mean(7);
 
         MEAN mtmp;
         for(int i = 0; i < 8; i++){
@@ -236,18 +236,18 @@ public:
         std::cout << var1 << "\n";
         std::cout << "[-2--]end covariance1\n";
 #endif 
-	int count = measurements.rows();
-	DSBOXS d(count, 4);
-	for(int i = 0; i < count; i++){
-		d.row(i) = measurements.row(i) - mean1;
-	}
+    	int count = measurements.rows();
+    	DSBOXS d(count, 4);
+    	for(int i = 0; i < count; i++){
+    		d.row(i) = measurements.row(i) - mean1;
+    	}
 #ifdef KLOG
 
         std::cout << "[-2--]bbegin d\n";
         std::cout << d << "\n";
         std::cout << "[-2--]bend d\n";
 #endif
- 	Eigen::Matrix<float, -1, -1, Eigen::RowMajor> factor = var1.llt().matrixL();
+        Eigen::Matrix<float, -1, -1, Eigen::RowMajor> factor = var1.llt().matrixL();
         Eigen::Matrix<float, -1, -1> z = factor.triangularView<Eigen::Lower>().solve<Eigen::OnTheRight>(d).transpose();
 #ifdef KLOG
 

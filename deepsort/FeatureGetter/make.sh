@@ -15,14 +15,13 @@ function getbazel(){
 BAZEL=`getbazel`
 
 function TF(){
-IINCLUDE="-I/usr/local/include -I/usr/local/opencv-3.4 -I/usr/local/opencv-3.4/include -I/usr/local/include/Eigen -I/usr/local/tensorflow/include"
+IINCLUDE="-I/usr/local/include -I/usr/local/opencv-3.4 -I/usr/local/opencv-3.4/include -I/usr/local/include/Eigen"
 
-LLIBPATH="-L/usr/local/lib -L/usr/local/tensorflow/lib"
+LLIBPATH="-L/usr/local/lib "
 LLIBS="-lopencv_core -lopencv_imgproc -lopencv_highgui -ltensorflow_cc -ltensorflow_framework"
 
-rm libFeatureGetter.so -rf
-g++ --std=c++14 -O3 -fopenmp -fPIC -shared -o libFeatureGetter.so $IINCLUDE $LLIBPATH  FeatureGetter.cpp $LLIBS $(pkg-config opencv3.4 --cflags --libs) $()
-
+rm -rf libFeatureGetter.so 
+g++ --std=c++14 -O3 -fopenmp -fPIC -shared -o libFeatureGetter.so $IINCLUDE $LLIBPATH  FeatureGetter.cpp $LLIBS $(pkg-config opencv3.4 --cflags --libs) 
 }
 
 
